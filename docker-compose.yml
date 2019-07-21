@@ -16,6 +16,23 @@ services:
     restart: on-failure
     env_file: .env
 
+  worker:
+    build:
+      context: ./backend
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - ./backend:/app
+    command: celery -A config worker -l info
+    restart: on-failure
+    env_file: .env
+
+  redis:
+    image: redis
+    ports:
+      - "6379:6379"
+
   frontend:
     image: node:10-alpine
     command: npm run serve
@@ -30,8 +47,6 @@ services:
     volumes:
       - postgres_data:/var/lib/postgresql/data
     env_file: .env
-
-
 
   nginx:
     image: nginx:alpine
