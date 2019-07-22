@@ -1,6 +1,5 @@
-from celery import shared_task
+from config.celery import app
 
-
-@shared_task
-def add(x, y):
+@app.task(bind=True)
+def add(self,x, y):
     return x + y
