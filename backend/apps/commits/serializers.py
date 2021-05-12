@@ -7,7 +7,7 @@ class RepositorySerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = Repository
-        fields = ['url', 'name', 'provider', 'status', 'commits']
+        fields = ['url', 'name', 'provider', 'status', 'updated', 'commits']
 
 
 class RepositoryWriteSerializer(serializers.ModelSerializer):

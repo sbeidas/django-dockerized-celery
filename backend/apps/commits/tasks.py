@@ -1,4 +1,5 @@
 import requests
+from django.utils import timezone
 
 from apps.commits.models import Repository, Commit
 from config.celery import app
@@ -15,10 +16,17 @@ def fetch_commits(self, repo_id):
     repo.status = 'syncing'
     repo.save()
 
-    url = f'https://api.github.com/repos/{repo.name}/commits'
+    if repo.updated:
+        # Silly hack since GitLab won't work correctly with the +00:00 timezone specifier
+        date = repo.updated.isoformat().replace("+00:00", "Z")
+        url = f'https://api.github.com/repos/{repo.name}/commits?since={date}'
+    else:
+        url = f'https://api.github.com/repos/{repo.name}/commits'
+
     processed = 0
 
     while url:
+        print(f'Fetching from {url}')
         response = requests.get(url)
 
         # This isn't a general error-handling strategy; it's a quick work-around for GitHub
@@ -46,6 +54,7 @@ def fetch_commits(self, repo_id):
             url = None
 
     repo.status = 'up-to-date'
+    repo.updated = timezone.now()
     repo.save()
 
     return f'Fetched {processed} commits'
