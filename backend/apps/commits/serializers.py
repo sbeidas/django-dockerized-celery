@@ -6,3 +6,9 @@ class RepositorySerializer(serializers.ModelSerializer):
     class Meta:
         model = Repository
         fields = ['name', 'provider', 'status']
+
+
+class RepositoryWriteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Repository
+        fields = ['name', 'provider']
