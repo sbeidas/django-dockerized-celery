@@ -21,6 +21,9 @@ class Repository(models.Model):
     def __str__(self):
         return self.name
 
+    class Meta:
+        ordering = ['pk']  # I'm just being lazy here
+
 
 class Commit(models.Model):
     repo = models.ForeignKey('commits.Repository', related_name='commits', on_delete=models.CASCADE)
@@ -31,3 +34,6 @@ class Commit(models.Model):
 
     def __str__(self):
         return self.sha
+
+    class Meta:
+        ordering = ['date']
