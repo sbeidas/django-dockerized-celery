@@ -2,18 +2,18 @@ from rest_framework import serializers
 from apps.commits.models import Repository, Commit
 
 
-class RepositorySerializer(serializers.ModelSerializer):
+class RepositorySerializer(serializers.HyperlinkedModelSerializer):
     commits = serializers.HyperlinkedIdentityField(view_name='repository-commits')
 
     class Meta:
         model = Repository
-        fields = ['name', 'provider', 'status', 'commits']
+        fields = ['url', 'name', 'provider', 'status', 'commits']
 
 
 class RepositoryWriteSerializer(serializers.ModelSerializer):
     class Meta:
         model = Repository
-        fields = ['name', 'provider']
+        fields = ['url', 'name', 'provider']
 
 
 class CommitSerializer(serializers.ModelSerializer):
