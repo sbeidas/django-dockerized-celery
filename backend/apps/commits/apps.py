@@ -2,4 +2,5 @@ from django.apps import AppConfig
 
 
 class CommitsConfig(AppConfig):
-    name = 'commits'
+    name = 'apps.commits'
+    verbose_name = 'Commits'
