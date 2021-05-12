@@ -27,14 +27,15 @@ DJANGO_APPS = [
 ]
 
 THIRD_PARTY_APPS = [
-    
+
     'rest_framework',
-    
+
     'django_extensions',
 ]
 
 LOCAL_APPS = [
     'apps.users',
+    'apps.commits',
 ]
 
 # See: https://docs.djangoproject.com/en/dev/ref/settings/#installed-apps
@@ -48,7 +49,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
-    
+
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -173,7 +174,6 @@ TEMPLATES = [
     },
 ]
 
-
 # PASSWORD STORAGE SETTINGS
 # ------------------------------------------------------------------------------
 # See https://docs.djangoproject.com/en/dev/ref/settings/#password-hashers
@@ -198,15 +198,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # AUTHENTICATION CONFIGURATION
 # ------------------------------------------------------------------------------
 AUTHENTICATION_BACKENDS = [
-    
+
     'django.contrib.auth.backends.ModelBackend',
 ]
 
 # Custom user app defaults
 # Select the correct user model
 AUTH_USER_MODEL = 'users.User'
-
-
 
 # DJANGO REST FRAMEWORK
 # ------------------------------------------------------------------------------
